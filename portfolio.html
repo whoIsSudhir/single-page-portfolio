@@ -271,7 +271,6 @@
         <button class="project p11" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20j8.webp" srcset="./assets/webp/optimized/35-768.webp 768w, ./assets/webp/Copy%20of%20j8.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1536" height="2048" alt="Portfolio image" decoding="async" loading="lazy"></button>
         <button class="project p1 tall" type="button"><img class="project-image" src="./assets/new%20website/ChatGPT%20Image%20May%2019%2C%202026%2C%2012_21_18%20PM.png" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1086" height="1448" alt="Portfolio image" decoding="async" loading="lazy"></button>
         <button class="project p2 tall" type="button"><img class="project-image" src="./assets/new%20website/Copy%20of%202.png" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1792" height="2400" alt="Portfolio image" decoding="async" loading="lazy"></button>
-        <button class="project p3 tall" type="button"><img class="project-image" src="./assets/new%20website/Copy%20of%20Copy%20of%20Editorial%201.png" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3072" height="4096" alt="Portfolio image" decoding="async" loading="lazy"></button>
         <button class="project p4 tall" type="button"><img class="project-image" src="./assets/new%20website/Copy%20of%20Editorial%202.png" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3612" height="5317" alt="Portfolio image" decoding="async" loading="lazy"></button>
         <button class="project p5 tall" type="button"><img class="project-image" src="./assets/new%20website/Editorial%203%20(2).png" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3072" height="4096" alt="Portfolio image" decoding="async" loading="lazy"></button>
         <button class="project p6 tall" type="button"><img class="project-image" src="./assets/new%20website/Selected%206.png" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1003" height="1568" alt="Portfolio image" decoding="async" loading="lazy"></button>
@@ -358,7 +357,23 @@
         });
       }
 
-      const projects = [...document.querySelectorAll('.project')];
+      const projectElements = [...document.querySelectorAll('.project')];
+      const projectImagePath = project => decodeURIComponent(project.querySelector('.project-image').getAttribute('src'));
+      const removedProjects = projectElements.filter(project => {
+        const path = projectImagePath(project);
+        return path.endsWith('/Copy of Copy of BLS_F2.webp') || path.endsWith('/new website/Copy of Copy of Editorial 1.png');
+      });
+      removedProjects.forEach(project => project.remove());
+      const remainingProjects = projectElements.filter(project => !removedProjects.includes(project));
+      const firstProject = remainingProjects.find(project => projectImagePath(project).endsWith('/Copy of Copy of Copy of Editorial 1.webp'));
+      const secondLastProject = remainingProjects.find(project => projectImagePath(project).endsWith('/Copy of Copy of 1.webp'));
+      const lastProject = remainingProjects.find(project => projectImagePath(project).endsWith('/new website/Editorial 3 (2).png'));
+      const projects = [
+        firstProject,
+        ...remainingProjects.filter(project => project !== firstProject && project !== secondLastProject && project !== lastProject),
+        secondLastProject,
+        lastProject
+      ].filter(Boolean);
       const lightbox = document.querySelector('#image-lightbox');
       const lightboxImage = lightbox.querySelector('.lightbox-image');
       const closeLightboxButton = lightbox.querySelector('.lightbox-close');
@@ -435,7 +450,8 @@
           const columnWidth = gallery.clientWidth / columnCount;
           const candidates = shuffledRatios(project, index);
           const preservedRatioLabel = preservedThumbnailRatios[columnCount]?.[index];
-          const fixedRatioLabel = portraitThumbnailIndexes.has(index + 1) ? '9 / 16' : preservedRatioLabel;
+          const isEditorialFeature = projectImagePath(project).endsWith('/Copy of Copy of Copy of Editorial 1.webp');
+          const fixedRatioLabel = isEditorialFeature ? '2 / 3' : (portraitThumbnailIndexes.has(index + 1) ? '9 / 16' : preservedRatioLabel);
           const chosen = thumbnailRatioByLabel.get(fixedRatioLabel) ||
             candidates.reduce((best, ratio) => {
               const repeatPenalty = previousRatios.slice(-2).filter(label => label === ratio.label).length * columnWidth;
