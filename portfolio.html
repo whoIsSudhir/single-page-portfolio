@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Selected campaign work by Enipp Studio — real creators, campaign-ready visuals, powered by AI.">
+  <meta name="theme-color" content="#111110">
+  <link rel="icon" href="./assets/favicon/favicon.ico" sizes="any">
+  <link rel="icon" href="./assets/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="./assets/favicon/favicon-96x96.png" type="image/png" sizes="96x96">
+  <link rel="apple-touch-icon" href="./assets/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="./assets/favicon/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>Selected Work | Enipp Studio</title>
+  <style>
+    :root {
+      --bg: #111110;
+      --bg-deep: #0a0a09;
+      --white: #fff;
+      --off-white: rgba(255, 255, 255, .88);
+      --muted: rgba(255, 255, 255, .48);
+      --line: rgba(255, 255, 255, .16);
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Inter', sans-serif;
+      --hero-eyebrow-size: 10px;
+      --hero-heading-size: clamp(52px, 6.4vw, 104px);
+      --hero-heading-line-height: .94;
+      --hero-subtext-size: 13px;
+      --hero-text-max-width: min(820px, 72vw);
+      --hero-subtext-max-width: 430px;
+      --hero-block-min-height: clamp(330px, 42vh, 470px);
+      --hero-block-top: clamp(168px, 23vh, 235px);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--bg); }
+    body { margin: 0; background: var(--bg); color: var(--white); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    button { font: inherit; }
+    .skip-link { position: fixed; left: 16px; top: -80px; z-index: 20; padding: 11px 16px; background: var(--white); color: var(--bg-deep); font-size: 12px; text-decoration: none; }
+    .skip-link:focus { top: 16px; }
+
+    .site-header { position: absolute; inset: 0 0 auto; z-index: 5; display: flex; align-items: center; justify-content: space-between; min-height: 84px; padding: 24px clamp(20px, 4vw, 64px); border-bottom: 1px solid rgba(255, 255, 255, .15); }
+    .brand { font-family: var(--serif); font-size: 25px; letter-spacing: .035em; line-height: 1; text-decoration: none; }
+    .header-center { position: absolute; left: 50%; transform: translateX(-50%); color: rgba(255, 255, 255, .74); font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; white-space: nowrap; }
+    .header-cta { border-bottom: 1px solid var(--white); padding-bottom: 4px; font-size: 11px; font-weight: 500; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; transition: opacity .2s; }
+    .header-cta:hover, .header-cta:focus-visible { opacity: .62; }
+
+    .carousel { --hero-parallax-y: 0px; position: relative; min-height: 100svh; overflow: hidden; background: var(--bg-deep); }
+    .slides { min-height: 100svh; }
+    .slide { position: absolute; inset: 0; display: grid; align-items: start; padding: var(--hero-block-top) clamp(20px, 8vw, 132px) clamp(94px, 12vh, 140px); opacity: 0; pointer-events: none; transition: opacity .8s ease; }
+    .slide.is-active { opacity: 1; pointer-events: auto; }
+    .slide::before, .slide::after { content: ''; position: absolute; pointer-events: none; }
+    .slide::before { inset: 0; background: linear-gradient(90deg, rgba(8, 8, 7, .72) 0%, rgba(17, 17, 16, .18) 55%, rgba(8, 8, 7, .44) 100%), linear-gradient(0deg, rgba(8, 8, 7, .68) 0%, transparent 42%); z-index: 1; }
+    .slide::after { width: min(38vw, 560px); height: min(72vw, 820px); right: 10vw; bottom: -10vw; border: 1px solid rgba(238, 227, 204, .1); background: repeating-linear-gradient(115deg, transparent 0 16px, rgba(238, 227, 204, .07) 17px 18px, transparent 19px 36px); transform: translate3d(0, var(--hero-parallax-y), 0) rotate(8deg); will-change: transform; z-index: 0; }
+    .slide-art { position: absolute; inset: 0; overflow: hidden; opacity: .54; transform: translate3d(0, var(--hero-parallax-y), 0); will-change: transform; }
+    .slide-art svg { position: absolute; right: clamp(14px, 9vw, 150px); top: 11vh; width: min(43vw, 620px); height: min(78vh, 760px); color: rgba(230, 219, 198, .68); }
+    .fashion-line-art path, .fashion-line-art line, .fashion-line-art circle { fill: none; stroke: currentColor; stroke-width: 1.15; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+    .fashion-line-art .construction { opacity: .34; stroke-dasharray: 5 8; }
+    .fashion-line-art .stitch { opacity: .42; stroke-dasharray: 1 7; }
+    .slide-one { background: #111110 url("./assets/images/fashion-editorial-hero.png") right calc(50% + var(--hero-parallax-y)) / cover no-repeat; }
+    .slide-one::before { background: linear-gradient(90deg, rgba(7, 7, 6, .84) 0%, rgba(9, 9, 8, .58) 33%, rgba(12, 12, 11, .16) 67%, rgba(7, 7, 6, .36) 100%), linear-gradient(0deg, rgba(6, 6, 5, .76) 0%, rgba(6, 6, 5, .16) 45%); }
+    .slide-one .slide-art { display: none; }
+    .slide-two { background: radial-gradient(ellipse at 66% 41%, rgba(214, 203, 183, .24), transparent 31%), linear-gradient(115deg, #171716 0%, #4a463d 48%, #141413 100%); }
+    .slide-three { background: radial-gradient(ellipse at 68% 42%, rgba(201, 190, 169, .22), transparent 32%), linear-gradient(125deg, #111110 0%, #3f3b34 51%, #0d0d0c 100%); }
+    .slide-content { position: relative; z-index: 2; width: 100%; max-width: var(--hero-text-max-width); min-height: var(--hero-block-min-height); transform: translateY(20px); transition: transform .85s cubic-bezier(.22, .61, .36, 1); }
+    .is-active .slide-content { transform: translateY(0); }
+    .eyebrow { margin: 0 0 19px; color: rgba(255, 255, 255, .72); font-size: var(--hero-eyebrow-size); font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+    .slide h1 { max-width: var(--hero-text-max-width); margin: 0; font-family: var(--serif); font-size: var(--hero-heading-size); font-weight: 300; letter-spacing: -.03em; line-height: var(--hero-heading-line-height); text-wrap: balance; }
+    .slide-summary { max-width: var(--hero-subtext-max-width); margin: 24px 0 0; color: var(--off-white); font-size: var(--hero-subtext-size); font-weight: 300; line-height: 1.65; text-wrap: balance; }
+    .carousel-nav { position: absolute; z-index: 3; bottom: clamp(30px, 5vw, 64px); left: clamp(20px, 4vw, 64px); right: clamp(20px, 4vw, 64px); display: flex; align-items: center; justify-content: space-between; }
+    .carousel-button { appearance: none; border: 0; padding: 12px 0; background: transparent; color: var(--white); cursor: pointer; font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+    .carousel-button span { display: inline-block; margin: 0 8px; font-size: 18px; font-weight: 300; line-height: 0; vertical-align: -1px; }
+    .carousel-button:hover { color: rgba(255, 255, 255, .58); }
+    .carousel-button:focus { outline: none; }
+    .carousel-button:focus-visible { color: rgba(255, 255, 255, .72); text-decoration: underline; text-decoration-color: rgba(255, 255, 255, .38); text-decoration-thickness: 1px; text-underline-offset: 7px; }
+    .dots { display: flex; align-items: center; gap: 8px; }
+    .dot { width: 9px; height: 9px; padding: 0; border: 1px solid rgba(255, 255, 255, .78); border-radius: 50%; background: transparent; cursor: pointer; transition: background .2s, transform .2s; }
+    .dot.is-active { background: var(--white); transform: scale(1.12); }
+    .dot:focus-visible, .project:focus-visible, .brand:focus-visible, .header-cta:focus-visible { outline: 2px solid rgba(255, 255, 255, .72); outline-offset: 4px; }
+
+    .work-intro { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end; padding: clamp(72px, 10vw, 150px) clamp(20px, 4vw, 64px) clamp(38px, 5vw, 70px); background: var(--bg); }
+    .work-intro h2 { max-width: 760px; margin: 0; font-family: var(--serif); font-size: clamp(43px, 5.8vw, 88px); font-weight: 300; letter-spacing: -.05em; line-height: .95; }
+    .work-intro p { max-width: 260px; margin: 0 0 5px; color: var(--muted); font-size: 12px; font-weight: 300; line-height: 1.65; }
+    .gallery { --gallery-cols: 4; display: grid; grid-template-columns: repeat(var(--gallery-cols), minmax(0, 1fr)); background: var(--bg-deep); }
+    .gallery-column { display: flex; flex-direction: column; min-width: 0; }
+    .project { position: relative; display: flex; width: 100%; aspect-ratio: var(--thumb-ratio, 3 / 4); min-height: 0; overflow: hidden; padding: 0; border: 0; background: transparent; color: var(--white); cursor: pointer; isolation: isolate; text-align: left; }
+    .project.tall { min-height: 0; }
+    .project.wide { width: 100%; }
+    .project::before { content: ''; position: absolute; inset: 0; transition: transform .65s cubic-bezier(.22, .61, .36, 1), opacity .45s ease; }
+    .project-image { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .65s cubic-bezier(.22, .61, .36, 1); }
+    .project:hover::before, .project:focus-visible::before, .project:hover .project-image, .project:focus-visible .project-image { transform: scale(1.055); }
+    .p1::before { background: radial-gradient(circle at 55% 23%, #e9e4d9 0 6%, transparent 6.3%), linear-gradient(126deg, #181817 0%, #44423d 43%, #d1c8b9 44%, #5e5b53 71%, #171716 72%); }
+    .p2::before { background: radial-gradient(ellipse at 45% 40%, #b7afa0 0 18%, transparent 18.4%), linear-gradient(155deg, #22211e, #070707 48%, #49463d); }
+    .p3::before { background: linear-gradient(145deg, transparent 0 39%, rgba(255,255,255,.62) 39.4% 43%, transparent 43.4%), radial-gradient(circle at 64% 64%, #8b8376 0%, #262521 43%, #0c0c0b 74%); }
+    .p4::before { background: radial-gradient(ellipse at 55% 28%, #d6d0c2 0 12%, transparent 12.5%), linear-gradient(178deg, #242320 0 26%, #a29a89 27% 53%, #191918 54%); }
+    .p5::before { background: linear-gradient(120deg, rgba(255,255,255,.58) 0 11%, transparent 11.4% 44%, rgba(255,255,255,.14) 44.5% 45%, transparent 45.5%), #272622; }
+    .p6::before { background: conic-gradient(from 45deg at 50% 44%, #dfd9c9, #37352f, #141413, #817969, #dfd9c9); }
+    .p7::before { background: radial-gradient(circle at 50% 49%, transparent 0 18%, rgba(255,255,255,.4) 18.3% 18.8%, transparent 19.2%), linear-gradient(45deg, #151513, #706b5f 49%, #1b1a18); }
+    .p8::before { background: linear-gradient(90deg, #181816 0 20%, transparent 20% 23%, #797367 23% 50%, transparent 50% 53%, #262521 53% 77%, transparent 77% 80%, #b5ad9c 80%); }
+    .p9::before { background: radial-gradient(ellipse at 47% 63%, #e0dbd0 0 16%, transparent 16.4%), linear-gradient(150deg, #161614, #535047 52%, #1c1b19); }
+    .p10::before { background: linear-gradient(118deg, #0c0c0b 0 32%, #938b7b 32.4% 52%, #292825 52.4%); }
+    .p11::before { background: radial-gradient(ellipse at 59% 40%, #d7d0be 0 19%, transparent 19.4%), linear-gradient(30deg, #1c1b19, #696459 55%, #11110f); }
+    .p12::before { background: linear-gradient(165deg, transparent 0 38%, rgba(255,255,255,.45) 38.5% 39.5%, transparent 40%), radial-gradient(circle at 67% 60%, #928979, #1d1c1a 52%); }
+    body.lightbox-open { overflow: hidden; }
+    .lightbox { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: clamp(20px, 4vw, 64px); background: rgba(5, 5, 4, .96); }
+    .lightbox[hidden] { display: none; }
+    .lightbox-figure { display: grid; width: 100%; height: 100%; margin: 0; }
+    .lightbox-image { display: block; align-self: center; justify-self: center; max-width: 100%; max-height: calc(100dvh - clamp(88px, 10vw, 132px)); object-fit: contain; }
+    .lightbox-control { position: absolute; z-index: 1; border: 1px solid rgba(255, 255, 255, .35); background: rgba(17, 17, 16, .65); color: var(--white); cursor: pointer; font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+    .lightbox-close { top: clamp(18px, 3vw, 42px); right: clamp(18px, 3vw, 42px); min-width: 44px; min-height: 44px; padding: 0 14px; }
+    .lightbox-previous, .lightbox-next { top: 50%; min-width: 48px; min-height: 56px; padding: 0 12px; transform: translateY(-50%); }
+    .lightbox-previous { left: clamp(10px, 2vw, 32px); }
+    .lightbox-next { right: clamp(10px, 2vw, 32px); }
+    .lightbox-control:hover, .lightbox-control:focus-visible { border-color: var(--white); background: var(--white); color: var(--bg-deep); }
+    .portfolio-footer { display: flex; justify-content: space-between; gap: 25px; padding: 32px clamp(20px, 4vw, 64px); background: var(--bg-deep); border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .portfolio-footer a { color: var(--off-white); text-decoration: none; }
+    .portfolio-footer a:hover, .portfolio-footer a:focus-visible { color: var(--white); }
+
+    @media (max-width: 760px) {
+      :root { --hero-heading-size: clamp(46px, 13vw, 72px); --hero-text-max-width: 100%; --hero-subtext-max-width: min(360px, 100%); --hero-block-min-height: 365px; --hero-block-top: 138px; }
+      .site-header { min-height: 68px; padding: 19px 20px; }
+      .brand { font-size: 22px; }
+      .header-center { display: none; }
+      .header-cta { font-size: 9px; }
+      .slide { padding: var(--hero-block-top) 25px 114px; }
+      .slide::after { display: none; }
+      .slide-one { background-position: 58% center; }
+      .slide-art svg { right: -18vw; top: 19vh; width: 82vw; height: 58vh; opacity: .42; }
+      .slide-summary { font-size: 12px; }
+      .carousel-nav { bottom: 32px; }
+      .carousel-button { font-size: 9px; }
+      .work-intro { grid-template-columns: 1fr; gap: 23px; padding: 76px 20px 37px; }
+      .work-intro p { max-width: 330px; }
+      .gallery { --gallery-cols: 3; }
+      .project, .project.wide { min-height: 0; }
+      .project.tall { min-height: 0; }      .lightbox { padding: 20px; }
+      .lightbox-image { max-height: calc(100dvh - 92px); }
+      .lightbox-previous, .lightbox-next { min-width: 42px; min-height: 48px; }
+      .portfolio-footer { flex-direction: column; padding: 27px 20px; }
+    }
+
+    @media (max-width: 430px) {
+      .gallery { --gallery-cols: 2; }
+      .project, .project.tall, .project.wide { min-height: 0; }
+      .lightbox { padding: 16px; }
+      .lightbox-image { max-height: calc(100dvh - 84px); }      .lightbox-close { top: 12px; right: 12px; }
+      .lightbox-previous, .lightbox-next { top: auto; bottom: 14px; transform: none; }
+      .lightbox-previous { left: 14px; }
+      .lightbox-next { right: 14px; }
+    }
+
+    @media (max-width: 340px) {
+      .gallery { --gallery-cols: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#selected-work">Skip to selected work</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="ENIPP home">ENIPP</a>
+    <span class="header-center">Selected Work</span>
+    <a class="header-cta" href="https://www.enipp.studio/">Start a project</a>
+  </header>
+
+  <main>
+    <section class="carousel" aria-label="Featured work">
+      <div class="slides" aria-live="polite">
+        <article class="slide slide-one is-active" aria-hidden="false">
+          <div class="slide-art" aria-hidden="true"><span class="orb"></span><span class="form"></span><span class="line"></span></div>
+          <div class="slide-content">
+            <p class="eyebrow">Featured direction / 01</p>
+            <h1>Real people Real campaigns Powered by AI</h1>
+            <p class="slide-summary">AI-powered fashion production with real people at the core.</p>
+          </div>
+        </article>
+        <article class="slide slide-two" aria-hidden="true">
+          <div class="slide-art" aria-hidden="true"><svg class="fashion-line-art" viewBox="0 0 520 720" focusable="false"><path class="construction" d="M68 92H456M94 174H430M72 256H458M102 338H420M84 420H452M116 502H404M68 584H456"/><path class="construction" d="M164 72V648M262 72V668M358 72V650"/><path d="M250 82C218 126 184 157 149 182C189 224 193 314 175 402C160 475 134 547 112 635C184 662 324 664 401 630C374 538 344 456 335 382C324 292 341 226 385 183C343 158 310 126 278 82C270 94 258 94 250 82Z"/><path d="M173 204C220 238 286 241 353 205"/><path d="M178 392C223 418 286 421 336 392"/><path class="stitch" d="M260 118C244 224 242 346 258 623"/><path class="stitch" d="M189 232C216 270 221 318 211 366"/><path class="stitch" d="M337 230C309 270 304 321 315 368"/></svg></div>
+          <div class="slide-content">
+            <p class="eyebrow">Featured direction / 02</p>
+            <h1>From a few references to a complete campaign</h1>
+            <p class="slide-summary">Turn simple product photos into ecommerce, editorial, and campaign visuals.</p>
+          </div>
+        </article>
+        <article class="slide slide-three" aria-hidden="true">
+          <div class="slide-art" aria-hidden="true"><svg class="fashion-line-art" viewBox="0 0 520 720" focusable="false"><path class="construction" d="M72 134C182 100 326 104 450 142M80 276C196 244 330 248 444 286M96 418C204 392 324 392 426 424M122 560C210 544 316 544 398 560"/><path d="M140 628C177 466 206 314 178 140C225 104 303 103 349 142C318 310 346 466 386 626C319 653 209 654 140 628Z"/><path d="M188 150C226 198 303 199 339 151"/><path d="M212 172C208 278 197 392 174 604"/><path d="M316 172C319 279 332 392 354 604"/><path class="stitch" d="M142 248C213 283 312 284 383 248"/><path class="stitch" d="M156 414C222 444 303 445 368 414"/><path class="stitch" d="M260 138C251 286 252 438 262 636"/><circle class="construction" cx="260" cy="138" r="96"/></svg></div>
+          <div class="slide-content">
+            <p class="eyebrow">Featured direction / 03</p>
+            <h1>Campaigns without the setup</h1>
+            <p class="slide-summary">No models. No photographers. No studios. No traditional production.</p>
+          </div>
+        </article>
+      </div>
+      <div class="carousel-nav">
+        <button class="carousel-button" type="button" data-direction="previous" aria-label="Previous featured project"><span aria-hidden="true">←</span> Previous</button>
+        <div class="dots" role="tablist" aria-label="Choose featured project">
+          <button class="dot is-active" type="button" role="tab" aria-selected="true" aria-label="Show featured project 1"></button>
+          <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Show featured project 2"></button>
+          <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Show featured project 3"></button>
+        </div>
+        <button class="carousel-button" type="button" data-direction="next" aria-label="Next featured project">Next <span aria-hidden="true">→</span></button>
+      </div>
+    </section>
+
+    <section id="selected-work" aria-labelledby="work-title">
+      <div class="work-intro">
+        <div><p class="eyebrow">ENIPP Studio / Selected work</p><h2 id="work-title">For evolving<br>fashion brands.</h2></div>
+        <p>An expanding library of fashion visuals built for social, ecommerce, campaigns, and editorials.</p>
+      </div>
+      <div class="gallery" aria-label="Selected image gallery">
+        <button class="project p1 tall" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%201.webp" srcset="./assets/webp/optimized/01-768.webp 768w, ./assets/webp/optimized/01-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3584" height="4800" alt="Portfolio image" decoding="async" fetchpriority="high"></button>
+        <button class="project p2" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%2022.webp" srcset="./assets/webp/optimized/02-768.webp 768w, ./assets/webp/Copy%20of%20Copy%20of%2022.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1536" height="2048" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p3 tall" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%2038.webp" srcset="./assets/webp/optimized/03-768.webp 768w, ./assets/webp/Copy%20of%20Copy%20of%2038.webp 1024w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1024" height="1536" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p4" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20BLS_F2.webp" srcset="./assets/webp/optimized/04-768.webp 768w, ./assets/webp/optimized/04-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="2244" height="2804" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p5 wide" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Bluewaffle_5_4k.webp" srcset="./assets/webp/optimized/05-768.webp 768w, ./assets/webp/optimized/05-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 100vw, 50vw" width="4096" height="3786" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p6" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Copy%20of%20Editorial%201(1).webp" srcset="./assets/webp/optimized/06-768.webp 768w, ./assets/webp/optimized/06-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3072" height="4096" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p7 tall" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Copy%20of%20Editorial%201.webp" srcset="./assets/webp/optimized/07-768.webp 768w, ./assets/webp/optimized/07-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3072" height="4096" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p8" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Copy%20of%20Editorial%202_1.webp" srcset="./assets/webp/optimized/08-768.webp 768w, ./assets/webp/optimized/08-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3054" height="4096" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p9" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Copy%20of%20Editorial%203.webp" srcset="./assets/webp/optimized/09-768.webp 768w, ./assets/webp/optimized/09-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3072" height="4096" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p10 wide" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Copy%20of%20Editorial%204%20(1).webp" srcset="./assets/webp/optimized/10-768.webp 768w, ./assets/webp/optimized/10-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 100vw, 50vw" width="3072" height="4096" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p11" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Copy%20of%20Editorial%204_2.webp" srcset="./assets/webp/optimized/11-768.webp 768w, ./assets/webp/optimized/11-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3072" height="4096" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p12 tall" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Copy%20of%20Editortial%202.webp" srcset="./assets/webp/optimized/12-768.webp 768w, ./assets/webp/optimized/12-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3072" height="4096" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p1 tall" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Deepblue_5_4k.webp" srcset="./assets/webp/optimized/13-768.webp 768w, ./assets/webp/optimized/13-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="2242" height="2806" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p2" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Editorial%204_1.webp" srcset="./assets/webp/optimized/14-768.webp 768w, ./assets/webp/optimized/14-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3612" height="5317" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p3 tall" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Final%20(1).webp" srcset="./assets/webp/optimized/15-768.webp 768w, ./assets/webp/Copy%20of%20Copy%20of%20Final%20(1).webp 1086w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1086" height="1448" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p4" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Final%202.webp" srcset="./assets/webp/optimized/16-768.webp 768w, ./assets/webp/Copy%20of%20Copy%20of%20Final%202.webp 1086w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1086" height="1448" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p5 wide" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Final%20Draft%206%202k.webp" srcset="./assets/webp/optimized/17-768.webp 768w, ./assets/webp/optimized/17-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 100vw, 50vw" width="2172" height="2896" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p6" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Final%20Kuwho.webp" srcset="./assets/webp/optimized/18-768.webp 768w, ./assets/webp/Copy%20of%20Copy%20of%20Final%20Kuwho.webp 1023w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1023" height="1537" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p7 tall" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Final%20Pants%201.webp" srcset="./assets/webp/optimized/19-768.webp 768w, ./assets/webp/Copy%20of%20Copy%20of%20Final%20Pants%201.webp 1023w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1023" height="1537" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p8" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Final_kanye_Smarth_Draft_11.webp" srcset="./assets/webp/optimized/20-768.webp 768w, ./assets/webp/optimized/20-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1710" height="2434" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p9" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20NazarNair.webp" srcset="./assets/webp/optimized/21-768.webp 768w, ./assets/webp/Copy%20of%20Copy%20of%20NazarNair.webp 1085w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1085" height="1450" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p10 wide" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20Pinkcutsleevewaffle_5_4k.webp" srcset="./assets/webp/optimized/22-768.webp 768w, ./assets/webp/optimized/22-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 100vw, 50vw" width="4096" height="4096" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p11" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20TigerVelvet_1_4k.webp" srcset="./assets/webp/optimized/23-768.webp 768w, ./assets/webp/optimized/23-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="4096" height="4096" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p12 tall" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20Copy%20of%20UntamedPath_E1_4k.webp" srcset="./assets/webp/optimized/24-768.webp 768w, ./assets/webp/optimized/24-1536.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3684" height="4608" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p1 tall" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20hf_20260828_073913_87bbfcd3-e003-4ce0-9dfb-4eaa4970ab87.webp" srcset="./assets/webp/optimized/25-768.webp 768w, ./assets/webp/Copy%20of%20hf_20260828_073913_87bbfcd3-e003-4ce0-9dfb-4eaa4970ab87.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1536" height="2048" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p2" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20hf_20260830_131210_157bd308-dc46-4ad8-b9dd-91161288c646.webp" srcset="./assets/webp/optimized/26-768.webp 768w, ./assets/webp/Copy%20of%20hf_20260830_131210_157bd308-dc46-4ad8-b9dd-91161288c646.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1536" height="2048" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p3 tall" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20hf_20260908_121113_724381dd-3948-4c04-82eb-d208c05c9ca5.webp" srcset="./assets/webp/optimized/27-768.webp 768w, ./assets/webp/Copy%20of%20hf_20260908_121113_724381dd-3948-4c04-82eb-d208c05c9ca5.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1536" height="2048" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p4" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20hf_20260908_121307_75237dfb-c5db-4d98-99de-6e9d73bdd3cd.webp" srcset="./assets/webp/optimized/28-768.webp 768w, ./assets/webp/Copy%20of%20hf_20260908_121307_75237dfb-c5db-4d98-99de-6e9d73bdd3cd.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1536" height="2048" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p5 wide" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20hf_20260908_121323_051de72f-ac06-4169-af0a-ab2cb0de7c7c.webp" srcset="./assets/webp/optimized/29-768.webp 768w, ./assets/webp/Copy%20of%20hf_20260908_121323_051de72f-ac06-4169-af0a-ab2cb0de7c7c.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 100vw, 50vw" width="1536" height="2048" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p6" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20hf_20260909_123710_c695f3f1-15ed-4a46-9f2d-c191d6ac8466.webp" srcset="./assets/webp/optimized/30-768.webp 768w, ./assets/webp/Copy%20of%20hf_20260909_123710_c695f3f1-15ed-4a46-9f2d-c191d6ac8466.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1536" height="2048" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p7 tall" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20hf_20260909_124004_27fc5f4a-737e-484b-ba90-041c7d95d32a.webp" srcset="./assets/webp/optimized/31-768.webp 768w, ./assets/webp/Copy%20of%20hf_20260909_124004_27fc5f4a-737e-484b-ba90-041c7d95d32a.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1536" height="2048" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p8" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20hf_20260909_124549_29e39c13-6cf4-40bc-aca7-85cb91482c62.webp" srcset="./assets/webp/optimized/32-768.webp 768w, ./assets/webp/Copy%20of%20hf_20260909_124549_29e39c13-6cf4-40bc-aca7-85cb91482c62.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1536" height="2048" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p9" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20j2.webp" srcset="./assets/webp/optimized/33-768.webp 768w, ./assets/webp/Copy%20of%20j2.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1536" height="1963" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p10 wide" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20j20.webp" srcset="./assets/webp/optimized/34-768.webp 768w, ./assets/webp/Copy%20of%20j20.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 100vw, 50vw" width="1536" height="2048" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p11" type="button"><img class="project-image" src="./assets/webp/Copy%20of%20j8.webp" srcset="./assets/webp/optimized/35-768.webp 768w, ./assets/webp/Copy%20of%20j8.webp 1536w" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1536" height="2048" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p1 tall" type="button"><img class="project-image" src="./assets/new%20website/ChatGPT%20Image%20May%2019%2C%202026%2C%2012_21_18%20PM.png" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1086" height="1448" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p2 tall" type="button"><img class="project-image" src="./assets/new%20website/Copy%20of%202.png" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1792" height="2400" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p3 tall" type="button"><img class="project-image" src="./assets/new%20website/Copy%20of%20Copy%20of%20Editorial%201.png" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3072" height="4096" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p4 tall" type="button"><img class="project-image" src="./assets/new%20website/Copy%20of%20Editorial%202.png" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3612" height="5317" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p5 tall" type="button"><img class="project-image" src="./assets/new%20website/Editorial%203%20(2).png" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="3072" height="4096" alt="Portfolio image" decoding="async" loading="lazy"></button>
+        <button class="project p6 tall" type="button"><img class="project-image" src="./assets/new%20website/Selected%206.png" sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, 25vw" width="1003" height="1568" alt="Portfolio image" decoding="async" loading="lazy"></button>
+      </div>
+    </section>
+  </main>
+
+  <div class="lightbox" id="image-lightbox" role="dialog" aria-modal="true" aria-label="Full image viewer" hidden>
+    <button class="lightbox-control lightbox-close" type="button" aria-label="Close full image viewer">Close</button>
+    <button class="lightbox-control lightbox-previous" type="button" aria-label="Show previous image">Previous</button>
+    <figure class="lightbox-figure">
+      <img class="lightbox-image" alt="">
+    </figure>
+    <button class="lightbox-control lightbox-next" type="button" aria-label="Show next image">Next</button>
+  </div>
+
+  <footer class="portfolio-footer"><span>© 2026 ENIPP. All rights reserved.</span><span>Visual archive updated regularly.</span><a href="https://www.enipp.studio/contact.html">Contact Enipp Studio</a></footer>
+
+  <script>
+    (() => {
+      const slides = [...document.querySelectorAll('.slide')];
+      const dots = [...document.querySelectorAll('.dot')];
+      const carousel = document.querySelector('.carousel');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const compactViewport = window.matchMedia('(max-width: 760px)');
+      let current = 0;
+      let timer;
+      let parallaxFrame;
+
+      function showSlide(next) {
+        current = (next + slides.length) % slides.length;
+        slides.forEach((slide, index) => {
+          const active = index === current;
+          slide.classList.toggle('is-active', active);
+          slide.setAttribute('aria-hidden', String(!active));
+          dots[index].classList.toggle('is-active', active);
+          dots[index].setAttribute('aria-selected', String(active));
+        });
+      }
+
+      function stopAutoplay() { window.clearInterval(timer); timer = undefined; }
+      function startAutoplay() {
+        stopAutoplay();
+        if (!reducedMotion.matches) timer = window.setInterval(() => showSlide(current + 1), 6500);
+      }
+
+      document.querySelectorAll('[data-direction]').forEach(button => {
+        button.addEventListener('click', () => { showSlide(current + (button.dataset.direction === 'next' ? 1 : -1)); startAutoplay(); });
+      });
+      dots.forEach((dot, index) => dot.addEventListener('click', () => { showSlide(index); startAutoplay(); }));
+      document.querySelector('.carousel').addEventListener('mouseenter', stopAutoplay);
+      document.querySelector('.carousel').addEventListener('mouseleave', startAutoplay);
+      document.querySelector('.carousel').addEventListener('focusin', stopAutoplay);
+      document.querySelector('.carousel').addEventListener('focusout', event => { if (!event.currentTarget.contains(event.relatedTarget)) startAutoplay(); });
+      function updateHeroParallax() {
+        parallaxFrame = undefined;
+        if (reducedMotion.matches) {
+          carousel.style.setProperty('--hero-parallax-y', '0px');
+          return;
+        }
+
+        const bounds = carousel.getBoundingClientRect();
+        const progress = Math.min(1, Math.max(0, -bounds.top / bounds.height));
+        const maximumOffset = Math.min(window.innerHeight * (compactViewport.matches ? .035 : .08), compactViewport.matches ? 34 : 96);
+        carousel.style.setProperty('--hero-parallax-y', `${(progress * maximumOffset).toFixed(2)}px`);
+      }
+
+      function scheduleHeroParallax() {
+        if (parallaxFrame === undefined) parallaxFrame = window.requestAnimationFrame(updateHeroParallax);
+      }
+
+      window.addEventListener('scroll', scheduleHeroParallax, { passive: true });
+      window.addEventListener('resize', scheduleHeroParallax);
+      reducedMotion.addEventListener('change', () => { startAutoplay(); scheduleHeroParallax(); });
+      startAutoplay();
+      scheduleHeroParallax();
+
+      if (!window.CSS || !CSS.supports('text-wrap', 'balance')) {
+        document.querySelectorAll('.slide h1').forEach(heading => {
+          const words = heading.textContent.trim().split(/\s+/);
+          if (words.length < 4) return;
+          const midpoint = Math.ceil(words.length / 2);
+          heading.innerHTML = `${words.slice(0, midpoint).join(' ')}<br>${words.slice(midpoint).join(' ')}`;
+        });
+      }
+
+      const projects = [...document.querySelectorAll('.project')];
+      const lightbox = document.querySelector('#image-lightbox');
+      const lightboxImage = lightbox.querySelector('.lightbox-image');
+      const closeLightboxButton = lightbox.querySelector('.lightbox-close');
+      const previousLightboxButton = lightbox.querySelector('.lightbox-previous');
+      const nextLightboxButton = lightbox.querySelector('.lightbox-next');
+      const gallery = document.querySelector('.gallery');
+      let activeProject = 0;
+      let lightboxTrigger;
+
+      const thumbnailRatios = [
+        { label: '1 / 1', value: 1 },
+        { label: '9 / 16', value: 9 / 16 },
+        { label: '2 / 3', value: 2 / 3 },
+        { label: '3 / 4', value: 3 / 4 }
+      ];
+      const thumbnailRatioByLabel = new Map(thumbnailRatios.map(ratio => [ratio.label, ratio]));
+      const portraitThumbnailIndexes = new Set([7, 10, 14, 16, 20, 26, 32, 35]);
+      const preservedThumbnailRatios = {
+        1: ['1 / 1', '2 / 3', '3 / 4', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '9 / 16', '3 / 4', '1 / 1', '2 / 3', '3 / 4', '9 / 16', '1 / 1', '2 / 3', '3 / 4', '1 / 1', '2 / 3', '3 / 4', '1 / 1', '2 / 3', '3 / 4', '1 / 1', '2 / 3', '3 / 4', '1 / 1', '2 / 3', '3 / 4', '1 / 1'],
+        2: ['1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '9 / 16', '3 / 4', '1 / 1', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4'],
+        3: ['1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '9 / 16', '1 / 1', '3 / 4', '1 / 1', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1'],
+        4: ['1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '9 / 16', '1 / 1', '3 / 4', '1 / 1', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1', '3 / 4', '2 / 3', '1 / 1']
+      };
+
+      function stableSeed(value) {
+        let hash = 0;
+        for (let index = 0; index < value.length; index += 1) {
+          hash = ((hash << 5) - hash + value.charCodeAt(index)) | 0;
+        }
+        return Math.abs(hash);
+      }
+
+      function compatibleRatios(image) {
+        const naturalRatio = Number(image.getAttribute('width')) / Number(image.getAttribute('height'));
+        if (naturalRatio <= .68) return thumbnailRatios.filter(ratio => ratio.label !== '1 / 1');
+        if (naturalRatio <= .9) return thumbnailRatios.filter(ratio => ratio.label !== '9 / 16');
+        return thumbnailRatios.filter(ratio => ratio.label === '1 / 1' || ratio.label === '3 / 4');
+      }
+
+      function shuffledRatios(project, index) {
+        const image = project.querySelector('.project-image');
+        const seed = stableSeed(`${index}-${image.getAttribute('src')}`);
+        return compatibleRatios(image)
+          .map((ratio, ratioIndex) => ({ ratio, sort: (seed + ratioIndex * 37) % 101 }))
+          .sort((a, b) => a.sort - b.sort)
+          .map(item => item.ratio);
+      }
+
+      function getGalleryColumnCount() {
+        return Number(getComputedStyle(gallery).getPropertyValue('--gallery-cols')) || 4;
+      }
+
+      function arrangeGalleryMasonry() {
+        const columnCount = getGalleryColumnCount();
+        const previousRatios = [];
+        const columns = Array.from({ length: columnCount }, () => {
+          const column = document.createElement('div');
+          column.className = 'gallery-column';
+          return { element: column, height: 0 };
+        });
+
+        gallery.replaceChildren(...columns.map(column => column.element));
+
+        projects.forEach((project, index) => {
+          const column = columns.reduce((shortest, current) => current.height < shortest.height ? current : shortest);
+          const columnWidth = gallery.clientWidth / columnCount;
+          const candidates = shuffledRatios(project, index);
+          const preservedRatioLabel = preservedThumbnailRatios[columnCount]?.[index];
+          const fixedRatioLabel = portraitThumbnailIndexes.has(index + 1) ? '9 / 16' : preservedRatioLabel;
+          const chosen = thumbnailRatioByLabel.get(fixedRatioLabel) ||
+            candidates.reduce((best, ratio) => {
+              const repeatPenalty = previousRatios.slice(-2).filter(label => label === ratio.label).length * columnWidth;
+              const projectedHeights = columns.map(item => item === column ? item.height + columnWidth / ratio.value : item.height);
+              const balance = Math.max(...projectedHeights) - Math.min(...projectedHeights);
+              const score = balance + repeatPenalty;
+              return score < best.score ? { ratio, score } : best;
+            }, { ratio: candidates[0], score: Infinity }).ratio;
+
+          project.style.setProperty('--thumb-ratio', chosen.label);
+          column.height += columnWidth / chosen.value;
+          column.element.appendChild(project);
+          previousRatios.push(chosen.label);
+        });
+      }
+
+      let masonryFrame;
+      function scheduleGalleryMasonry() {
+        window.cancelAnimationFrame(masonryFrame);
+        masonryFrame = window.requestAnimationFrame(arrangeGalleryMasonry);
+      }
+
+      window.addEventListener('resize', scheduleGalleryMasonry);
+      scheduleGalleryMasonry();
+
+      function setLightboxProject(index) {
+        activeProject = (index + projects.length) % projects.length;
+        const project = projects[activeProject];
+        const thumbnail = project.querySelector('.project-image');
+        lightboxImage.src = thumbnail.getAttribute('src');
+        lightboxImage.alt = thumbnail.alt;
+      }
+
+      function openLightbox(trigger) {
+        lightboxTrigger = trigger;
+        setLightboxProject(projects.indexOf(trigger));
+        lightbox.hidden = false;
+        document.body.classList.add('lightbox-open');
+        closeLightboxButton.focus();
+      }
+
+      function closeLightbox() {
+        lightbox.hidden = true;
+        document.body.classList.remove('lightbox-open');
+        lightboxTrigger?.focus();
+      }
+
+      function changeLightboxProject(direction) {
+        setLightboxProject(activeProject + direction);
+      }
+
+      projects.forEach(project => project.addEventListener('click', () => openLightbox(project)));
+      closeLightboxButton.addEventListener('click', closeLightbox);
+      previousLightboxButton.addEventListener('click', () => changeLightboxProject(-1));
+      nextLightboxButton.addEventListener('click', () => changeLightboxProject(1));
+      lightbox.addEventListener('click', event => { if (event.target === lightbox) closeLightbox(); });
+      document.addEventListener('keydown', event => {
+        if (lightbox.hidden) return;
+        if (event.key === 'Escape') { event.preventDefault(); closeLightbox(); }
+        if (event.key === 'ArrowLeft') { event.preventDefault(); changeLightboxProject(-1); }
+        if (event.key === 'ArrowRight') { event.preventDefault(); changeLightboxProject(1); }
+        if (event.key === 'Tab') {
+          const controls = [...lightbox.querySelectorAll('button:not([disabled])')];
+          const first = controls[0];
+          const last = controls.at(-1);
+          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+          if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
