@@ -148,12 +148,13 @@
     .portfolio-footer a:hover, .portfolio-footer a:focus-visible { color: var(--white); }
 
     @media (max-width: 760px) {
-      :root { --hero-heading-size: clamp(46px, 13vw, 72px); --hero-text-max-width: 100%; --hero-subtext-max-width: min(360px, 100%); --hero-block-min-height: 365px; --hero-block-top: 138px; }
+      :root { --hero-heading-size: clamp(44px, 12vw, 68px); --hero-text-max-width: 100%; --hero-subtext-max-width: min(360px, 100%); --hero-block-min-height: 230px; --hero-block-top: 116px; }
       .site-header { min-height: 68px; padding: 19px 20px; }
       .brand { font-size: 22px; }
       .header-center { display: none; }
       .header-cta { font-size: 9px; }
-      .slide { padding: var(--hero-block-top) 25px 114px; }
+      .carousel, .slides { min-height: min(520px, 60svh); }
+      .slide { padding: var(--hero-block-top) 25px 48px; }
       .slide::after { display: none; }
       .slide-one { background-position: 58% center; }
       .slide-art svg { right: -18vw; top: 19vh; width: 82vw; height: 58vh; opacity: .42; }
@@ -171,6 +172,10 @@
     }
 
     @media (max-width: 430px) {
+      :root { --hero-heading-size: clamp(38px, 11vw, 48px); --hero-block-min-height: 190px; --hero-block-top: 88px; }
+      .carousel, .slides { min-height: min(410px, 52svh); }
+      .slide { padding: var(--hero-block-top) 20px 44px; }
+      .carousel-nav { bottom: 20px; left: 20px; right: 20px; }
       .gallery { --gallery-cols: 1; }
       .project, .project.tall, .project.wide { min-height: 0; aspect-ratio: auto; display: block; }
       .project-image { position: relative; inset: auto; display: block; width: 100%; height: auto; object-fit: contain; }
